@@ -1,10 +1,10 @@
 package edu.isu.cs.cs3308;
 
+import edu.isu.cs.cs3308.structures.impl.CircularlyLinkedList;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import edu.isu.cs.cs3308.structures.impl.SolitaireEncrypt;
@@ -27,6 +27,22 @@ public class SolitaireEncryptTest {
             }
         } catch (IOException e) {
             fail();
+        }
+    }
+
+    @Test
+    public void testGenerateDeckFromFile() {
+        SolitaireEncrypt encrypt = new SolitaireEncrypt("data/solitaireEncryptTestFile.txt");
+        CircularlyLinkedList<Integer> testDeck = new CircularlyLinkedList<>();
+        testDeck.addLast(0);
+        testDeck.addLast(1);
+        testDeck.addLast(2);
+        testDeck.addLast(3);
+        testDeck.addLast(4);
+        testDeck.addLast(5);
+
+        for (int i = 0; i < testDeck.size(); i++) {
+            assertEquals("Deck has not been generated properly: ", testDeck.get(i), encrypt.getDeck().get(i));
         }
     }
 }
