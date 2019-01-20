@@ -32,6 +32,38 @@ public class SinglyLinkedListTest {
     public void testIndexOf_1() {
         SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
 
-        list.indexOf(0);
+        assertEquals("Does not return -1 on empty list: ", -1, list.indexOf(0));
+    }
+
+    /**
+     * Test if head is updated when inserting at the front.
+     */
+    @Test
+    public void testInsert_01() {
+        SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
+
+        list.addLast(0);
+        list.addLast(1);
+        list.addLast(2);
+
+        list.insert(3, 0);
+
+        assertEquals("Head not updated: ", (Integer) 3, list.first());
+    }
+
+    /**
+     * Test is tail is updated when inserting at the back.
+     */
+    @Test
+    public void testInsert_02() {
+        SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
+
+        list.addLast(0);
+        list.addLast(1);
+        list.addLast(2);
+
+        list.insert(3, list.size() + 1);
+
+        assertEquals("Tail not updated: ", (Integer) 3, list.last());
     }
 }

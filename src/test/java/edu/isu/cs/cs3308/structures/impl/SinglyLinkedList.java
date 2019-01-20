@@ -10,9 +10,9 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  */
 public class SinglyLinkedList<E> implements List<E> {
 
-    private Node listHead = null;
-    private Node listTail = null;
-    private int listSize = 0;
+    protected Node listHead = null;
+    protected Node listTail = null;
+    protected int listSize = 0;
 
     /**
      * @return first element in the list or null if the list is empty.
@@ -51,7 +51,7 @@ public class SinglyLinkedList<E> implements List<E> {
         if (element != null) {
             Node newNode = new Node(element);
 
-            if (listSize == 0) {
+            if (isEmpty()) {
                 listHead = newNode;
                 listTail = newNode;
             } else {
@@ -93,20 +93,7 @@ public class SinglyLinkedList<E> implements List<E> {
      * @return Element at the front of the list, or null if the list is empty.
      */
     @Override
-    public E removeFirst() {
-        if (listSize == 0) {
-            return null;
-        }
-        else {
-            Node nodeToRemove = listHead;
-            Node newHead = nodeToRemove.getNextNode();
-
-            nodeToRemove.nextNode = null;
-            listHead = newHead;
-            listSize--;
-            return nodeToRemove.nodeData;
-        }
-    }
+    public E removeFirst() { return remove(0); }
 
     /**
      * Removes the element at the end of the list.
@@ -130,9 +117,12 @@ public class SinglyLinkedList<E> implements List<E> {
      */
     @Override
     public void insert(E element, int index) {
-        if (element != null && index > 0) {
+        if (element != null) {
             if (index >= listSize) {
                 addLast(element);
+            }
+            else if (index == 0) {
+                addFirst(element);
             }
             else {
                 Node newNode = new Node(element);
@@ -288,7 +278,7 @@ public class SinglyLinkedList<E> implements List<E> {
     /**
      * Represents the data container used in the SinglyLinkedList class.
      */
-    private class Node {
+    protected class Node {
         E nodeData;
         Node nextNode;
 
