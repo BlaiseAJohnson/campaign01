@@ -85,4 +85,16 @@ public class CircularlyLinkedListTest {
         assertEquals("List not circular: ", (Integer) 0, fixture.get(4));
         assertEquals("List not circular: ", (Integer) 3, fixture.get(7));
     }
+
+    /**
+     * Tests if get() returns null when given a negative index.
+     */
+    @Test
+    public void getTest_01() {
+        fixture.addLast(0);
+        fixture.addLast(1);
+        fixture.addLast(2);
+
+        assertEquals("Case for negative value not handled: ", null, fixture.get(-1));
+    }
 }

@@ -154,37 +154,35 @@ public class SinglyLinkedList<E> implements List<E> {
      */
     @Override
     public E remove(int index) {
-        if (index >= listSize || index < 0) {
-            return null;
+        if (index >= listSize || index < 0) return null;
+
+        Node currentNode = listHead;
+        Node nodeAfterCurrent;
+        Node nodeBeforeCurrent = listHead;
+
+        // Travel to the correct node while storing the previous node
+        for (int i = 0; i < index; i++) {
+            nodeBeforeCurrent = currentNode;
+            currentNode = currentNode.nextNode;
         }
-        else {
-            Node currentNode = listHead;
-            Node nodeAfterCurrent;
-            Node nodeBeforeCurrent = listHead;
+        nodeAfterCurrent = currentNode.nextNode;
 
-            // Travel to the correct node while storing the previous node
-            for (int i = 0; i < index; i++) {
-                nodeBeforeCurrent = currentNode;
-                currentNode = currentNode.nextNode;
-            }
-            nodeAfterCurrent = currentNode.nextNode;
+        // Connect the nodes on either side of the current node, then detach it.
+        nodeBeforeCurrent.nextNode = nodeAfterCurrent;
+        currentNode.nextNode = null;
 
-            // Connect the nodes on either side of the current node, then detach it.
-            nodeBeforeCurrent.nextNode = nodeAfterCurrent;
-            currentNode.nextNode = null;
-
-            // Update head or tail.
-            if (index == 0) {
-                listHead = nodeAfterCurrent;
-            }
-            else if (index == listSize - 1) {
-                listTail = nodeBeforeCurrent;
-            }
-
-            // Return contents of removed node and decrease list size.
-            listSize--;
-            return currentNode.nodeData;
+        // Update head or tail.
+        if (index == 0) {
+            listHead = nodeAfterCurrent;
         }
+        else if (index == listSize - 1) {
+            listTail = nodeBeforeCurrent;
+        }
+
+        // Return contents of removed node and decrease list size.
+        listSize--;
+        return currentNode.nodeData;
+
     }
 
     /**
@@ -198,18 +196,16 @@ public class SinglyLinkedList<E> implements List<E> {
      */
     @Override
     public E get(int index) {
-        if (index >= listSize || index < 0) {
-            return null;
-        }
-        else {
-            Node currentNode = listHead;
+        if (index >= listSize || index < 0) return null;
 
-            for (int i = 0; i < index; i++) {
-                currentNode = currentNode.getNextNode();
-            }
+        Node currentNode = listHead;
 
-            return currentNode.nodeData;
+        for (int i = 0; i < index; i++) {
+            currentNode = currentNode.getNextNode();
         }
+
+        return currentNode.nodeData;
+
     }
 
     /**
@@ -241,7 +237,7 @@ public class SinglyLinkedList<E> implements List<E> {
         while (true) {
             System.out.println(currentNode.nodeData);
 
-            if (currentNode.nextNode == null) { break; }
+            if (currentNode.nextNode == null) break;
 
             currentNode = currentNode.nextNode;
         }
@@ -271,8 +267,9 @@ public class SinglyLinkedList<E> implements List<E> {
 
             return elementFound ? currentIndex : -1;
         }
-
-        return -1;
+        else {
+            return -1;
+        }
     }
 
     /**

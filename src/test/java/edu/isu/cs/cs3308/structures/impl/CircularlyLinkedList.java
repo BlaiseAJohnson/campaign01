@@ -11,13 +11,15 @@ public class CircularlyLinkedList<E> extends SinglyLinkedList<E> {
      */
     @Override
     public E get(int index) {
-            Node currentNode = listHead;
+        if (index < 0) return null;
 
-            for (int i = 0; i < index; i++) {
-                currentNode = currentNode.getNextNode();
-            }
+        Node currentNode = listHead;
 
-            return currentNode.nodeData;
+        for (int i = 0; i < index; i++) {
+            currentNode = currentNode.getNextNode();
+        }
+
+        return currentNode.nodeData;
     }
 
     /**
