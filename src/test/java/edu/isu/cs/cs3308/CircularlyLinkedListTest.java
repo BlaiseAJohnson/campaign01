@@ -95,6 +95,6 @@ public class CircularlyLinkedListTest {
         fixture.addLast(1);
         fixture.addLast(2);
 
-        assertEquals("Case for negative value not handled: ", null, fixture.get(-1));
+        assertNull("Case for negative arguments not handled: ",fixture.get(-1));
     }
 }
