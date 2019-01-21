@@ -1,6 +1,5 @@
 package edu.isu.cs.cs3308;
 
-import edu.isu.cs.cs3308.structures.impl.CircularlyLinkedList;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import java.io.IOException;
@@ -23,26 +22,50 @@ public class SolitaireEncryptTest {
 
             for (int i = 0; i < encrypted.size(); i++) {
                 String result = encrypt.execute(decrypted.get(i));
-                assertEquals(result, encrypted.get(i));
+                assertEquals(encrypted.get(i), result);
             }
         } catch (IOException e) {
             fail();
         }
     }
 
+    /**
+     * Test if deck is generated properly from a file.
+     */
     @Test
     public void testGenerateDeckFromFile() {
         SolitaireEncrypt encrypt = new SolitaireEncrypt("data/solitaireEncryptTestFile.txt");
-        CircularlyLinkedList<Integer> testDeck = new CircularlyLinkedList<>();
-        testDeck.addLast(0);
-        testDeck.addLast(1);
-        testDeck.addLast(2);
-        testDeck.addLast(3);
-        testDeck.addLast(4);
-        testDeck.addLast(5);
+        String sequence = "0 1 2 3 4 5 ";
+        String testSequence = encrypt.exportDeckToString();
 
-        for (int i = 0; i < testDeck.size(); i++) {
-            assertEquals("Deck has not been generated properly: ", testDeck.get(i), encrypt.getDeck().get(i));
+        assertEquals(sequence, testSequence);
+    }
+
+    /**
+     * Test if message is properly being converted to numbers.
+     */
+    @Test
+    public void testConvertMessageToNums() {
+        SolitaireEncrypt encrypt = new SolitaireEncrypt("data/solitaireEncryptTestFile.txt");
+        String testMessage = "abcdefg";
+        int[] sequence = {1, 2, 3, 4, 5, 6, 7};
+        int[] testSequence = encrypt.convertMessageToNums(testMessage);
+
+        for (int i = 0; i < sequence.length; i++) {
+            assertEquals("nums don't match: ", sequence[i], testSequence[i]);
         }
+    }
+
+    @Test
+    public void testPerformTripleCut() {
+        SolitaireEncrypt encrypt = new SolitaireEncrypt("data/performTripleCutTestFile.txt");
+
+        String sequence = "7 8 9 27 4 5 6 28 1 2 3 ";
+
+        encrypt.performTripleCut();
+
+        String testSequence = encrypt.exportDeckToString();
+
+        assertEquals(sequence, testSequence);
     }
 }
