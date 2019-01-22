@@ -18,7 +18,7 @@ public class SolitaireEncryptTest {
         SolitaireEncrypt encrypt = new SolitaireEncrypt("data/deck1.txt");
         try {
             List<String> encrypted = Files.readAllLines(Paths.get("data/encrypted.txt"));
-            List<String> decrypted = Files.readAllLines(Paths.get("data/messages.txt"));
+            List<String> decrypted = Files.readAllLines(Paths.get("data/decrypted.txt"));
 
             for (int i = 0; i < encrypted.size(); i++) {
                 String result = encrypt.execute(decrypted.get(i));
@@ -47,7 +47,7 @@ public class SolitaireEncryptTest {
     @Test
     public void testConvertMessageToNums() {
         SolitaireEncrypt encrypt = new SolitaireEncrypt("data/solitaireEncryptTestFile.txt");
-        String testMessage = "abcdefg";
+        String testMessage = "ABCDEFG";
         int[] sequence = {1, 2, 3, 4, 5, 6, 7};
         int[] testSequence = encrypt.convertMessageToNums(testMessage);
 
@@ -67,5 +67,18 @@ public class SolitaireEncryptTest {
         String testSequence = encrypt.exportDeckToString();
 
         assertEquals(sequence, testSequence);
+    }
+
+    /**
+     * Test if message is properly being converted to numbers.
+     */
+    @Test
+    public void testConvertNumsToMessage() {
+        SolitaireEncrypt encrypt = new SolitaireEncrypt("data/solitaireEncryptTestFile.txt");
+        int[] sequence = {1, 2, 3, 4, 5, 6, 7};
+        String message = "ABCDEFG";
+        String testMessage = encrypt.convertNumsToMessage(sequence);
+
+        assertEquals(message, testMessage);
     }
 }
