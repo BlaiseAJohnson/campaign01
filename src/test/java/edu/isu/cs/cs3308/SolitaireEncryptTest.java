@@ -18,7 +18,7 @@ public class SolitaireEncryptTest {
         SolitaireEncrypt encrypt = new SolitaireEncrypt("data/deck1.txt");
         try {
             List<String> encrypted = Files.readAllLines(Paths.get("data/encrypted.txt"));
-            List<String> decrypted = Files.readAllLines(Paths.get("data/decrypted.txt"));
+            List<String> decrypted = Files.readAllLines(Paths.get("data/messages.txt"));
 
             for (int i = 0; i < encrypted.size(); i++) {
                 String result = encrypt.execute(decrypted.get(i));
@@ -80,5 +80,15 @@ public class SolitaireEncryptTest {
         String testMessage = encrypt.convertNumsToMessage(sequence);
 
         assertEquals(message, testMessage);
+    }
+
+    @Test
+    public void testGenerateKeyValue() {
+        SolitaireEncrypt encrypt = new SolitaireEncrypt("data/testDeck.txt");
+
+        int testKeyValue = encrypt.generateKeystreamValue();
+        int controlKeyValue = 13;
+
+        assertEquals(controlKeyValue, testKeyValue);
     }
 }
