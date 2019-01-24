@@ -23,7 +23,7 @@ public class SolitaireDecryptTest {
 
             for (int i = 0; i < encrypted.size(); i++) {
                 String result = decrypt.execute(encrypted.get(i));
-                assertEquals(result, decrypted.get(i));
+                assertEquals(decrypted.get(i), result);
             }
         } catch (IOException e) {
             fail();

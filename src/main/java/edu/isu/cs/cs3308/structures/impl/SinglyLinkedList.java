@@ -1,8 +1,5 @@
 package edu.isu.cs.cs3308.structures.impl;
 
-import edu.isu.cs.cs3308.structures.List;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 
 /**
  * A generic template implementation of a singly-lined list structure.

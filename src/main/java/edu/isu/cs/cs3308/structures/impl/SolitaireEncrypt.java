@@ -50,7 +50,7 @@ public class SolitaireEncrypt {
         catch (IOException e) {
             System.out.println(
                     "Specified file could not be found or does not exist.\n" +
-                    "Encryption could not be performed.");
+                            "Encryption could not be performed.");
             return new CircularlyLinkedList<>();
         }
     }
@@ -68,10 +68,11 @@ public class SolitaireEncrypt {
         // 2. Alter numbers using key stream
         // 3. Convert numbers into letters and combine into a string
 
-        String messageUpperCase = message.toUpperCase();
-        String messageNoSpaces = messageUpperCase.replace(" ", "");
+        String messageOnlyLetters = message.replaceAll("[^a-zA-Z]", "");
+        String messageUpperCase = messageOnlyLetters.toUpperCase();
+        String messagePadded = padWithXs(messageUpperCase);
 
-        int[] messageSequence = convertMessageToNums(messageNoSpaces);
+        int[] messageSequence = convertMessageToNums(messagePadded);
         int[] encryptedSequence = encrypt(messageSequence);
         String encryptedMessage = convertNumsToMessage(encryptedSequence);
 
@@ -114,6 +115,14 @@ public class SolitaireEncrypt {
     }
 
 
+    public String padWithXs(String message) {
+        while (message.length() % 5 != 0) {
+            message = message.concat("X");
+        }
+
+        return message;
+    }
+
 
     public int[] encrypt(int[] sequence) {
         int[] encryptedSequence = new int[sequence.length];
@@ -141,35 +150,24 @@ public class SolitaireEncrypt {
         int keyValue;
 
         do {
-            System.out.println(exportDeckToString());
 
-        // 1. Move Joker A 1 card down in the deck.
+            // 1. Move Joker A 1 card down in the deck.
             int jokerALocation = deck.indexOf(27);
-            int jokerA = deck.remove(jokerALocation);
-            deck.insert(jokerA, jokerALocation + 1);
+            deck.swapWithNext(jokerALocation, 1);
 
-            System.out.println(exportDeckToString());
-
-        // 2. Move Joker B two cards down in the deck.
+            // 2. Move Joker B two cards down in the deck.
             int jokerBLocation = deck.indexOf(28);
-            int jokerB = deck.remove(jokerBLocation);
-            deck.insert(jokerB, jokerBLocation + 2);
+            deck.swapWithNext(jokerBLocation, 2);
 
-            System.out.println(exportDeckToString());
-
-        // 3. Perform triple cut.
+            // 3. Perform triple cut.
             performTripleCut();
 
-            System.out.println(exportDeckToString());
-
-        // 4.1 Remove the bottom card from the deck.
+            // 4.1 Remove the bottom card from the deck.
             int bottomCard = deck.removeLast();
 
-            System.out.println(exportDeckToString());
-
-        // 4.2 Move cards from the top to the bottom of the deck equal
-        //     to the value of the bottom card.
-        //     If the bottom card is either joker, count 27 cards.
+            // 4.2 Move cards from the top to the bottom of the deck equal
+            //     to the value of the bottom card.
+            //     If the bottom card is either joker, count 27 cards.
             int numberOfCards = (bottomCard == 27 || bottomCard == 28) ? 27 : bottomCard;
 
             for (int i = 0; i < numberOfCards; i++) {
@@ -177,33 +175,24 @@ public class SolitaireEncrypt {
                 deck.addLast(currentCard);
             }
 
-            System.out.println(exportDeckToString());
-
-        // 4.3 Return the bottom card to the bottom of the deck.
+            // 4.3 Return the bottom card to the bottom of the deck.
             deck.addLast(bottomCard);
 
-            System.out.println(exportDeckToString());
-
-        // 5.1 Look at the value of the top card.
-        //     (If it is either joker, the value is 27)
+            // 5.1 Look at the value of the top card.
+            //     (If it is either joker, the value is 27)
             int topCard = deck.get(0);
             topCard = (topCard == 27 || topCard == 28)? 27 : topCard;
 
 
-        // 5.2 Count down a number of cards equal to the value of the top card.
-        //     The value of the NEXT card is the key.
+            // 5.2 Count down a number of cards equal to the value of the top card.
+            //     The value of the NEXT card is the key.
 
-        //     (Since the list has a 0-based index, but there is no "0" card, passing the value of
-        //      the top card directly int the get() method should return the value of next card.
+            //     (Since the list has a 0-based index, but there is no "0" card, passing the value of
+            //      the top card directly int the get() method should return the value of next card.
             keyValue = deck.get(topCard);
 
-            System.out.println(exportDeckToString());
-            System.out.println(keyValue);
-
-        // 5.3 If the key value is a joker (27 or 28) repeat this process until it isn't.
+            // 5.3 If the key value is a joker (27 or 28) repeat this process until it isn't.
         }while (keyValue == 27 || keyValue == 28);
-
-        System.out.println("------------------------------------------");
 
         return keyValue;
     }

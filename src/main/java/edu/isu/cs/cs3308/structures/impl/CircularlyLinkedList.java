@@ -122,4 +122,38 @@ public class CircularlyLinkedList<E> extends SinglyLinkedList<E> {
             return currentNode.nodeData;
         }
     }
+
+    public void swapWithNext(int indexToSwap, int timesToSwap) {
+        if (timesToSwap == 0) {
+            return;
+        }
+
+        Node currentNode = listHead;
+        Node previousNode = listHead;
+        for (int i = 0; i < indexToSwap; i ++) {
+            previousNode = currentNode;
+            currentNode = currentNode.nextNode;
+        }
+        Node nextNode = currentNode.nextNode;
+
+        previousNode.nextNode = nextNode;
+        currentNode.nextNode = nextNode.nextNode;
+        nextNode.nextNode = currentNode;
+
+        if (indexToSwap == 0) {
+            listHead = nextNode;
+        }
+        else if (indexToSwap == size() - 1) {
+            listHead = currentNode;
+            listTail = nextNode;
+        }
+        else if (indexToSwap == size() - 2) {
+            listTail = currentNode;
+        }
+
+
+
+        swapWithNext((indexToSwap + 1) % size(), timesToSwap - 1);
+
+    }
 }

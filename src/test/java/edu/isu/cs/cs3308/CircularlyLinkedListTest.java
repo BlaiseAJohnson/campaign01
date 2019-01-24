@@ -1,7 +1,7 @@
 package edu.isu.cs.cs3308;
 
 import edu.isu.cs.cs3308.structures.impl.CircularlyLinkedList;
-import edu.isu.cs.cs3308.structures.List;
+import edu.isu.cs.cs3308.structures.impl.List;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -96,5 +96,104 @@ public class CircularlyLinkedListTest {
         fixture.addLast(2);
 
         assertNull("Case for negative arguments not handled: ",fixture.get(-1));
+    }
+
+    @Test
+    public void swapWithNextTest_01() {
+        fixture.addLast(0);
+        fixture.addLast(1);
+        fixture.addLast(2);
+        fixture.addLast(3);
+        fixture.addLast(4);
+
+        int[] expectedSequence = {0, 2, 1, 3, 4};
+
+        ((CircularlyLinkedList) fixture).swapWithNext(1, 1);
+
+        for (int i = 0; i < fixture.size(); i++) {
+            System.out.println(String.format("%d %d", expectedSequence[i], fixture.get(i)));
+            assertEquals((Integer) expectedSequence[i], fixture.get(i));
+        }
+    }
+
+    @Test
+    public void swapWithNextTest_02() {
+        fixture.addLast(0);
+        fixture.addLast(1);
+        fixture.addLast(2);
+        fixture.addLast(3);
+        fixture.addLast(4);
+
+        int[] expectedSequence = {0, 2, 3, 1, 4};
+
+        ((CircularlyLinkedList) fixture).swapWithNext(1, 2);
+
+        for (int i = 0; i < fixture.size(); i++) {
+            System.out.println(String.format("%d %d", expectedSequence[i], fixture.get(i)));
+            assertEquals((Integer) expectedSequence[i], fixture.get(i));
+        }
+    }
+
+    @Test
+    public void swapWithNextTest_03() {
+        fixture.addLast(0);
+        fixture.addLast(1);
+        fixture.addLast(2);
+        fixture.addLast(3);
+        fixture.addLast(4);
+
+        int[] expectedSequence = {0, 2, 3, 4, 1};
+
+        ((CircularlyLinkedList) fixture).swapWithNext(1, 3);
+
+        for (int i = 0; i < fixture.size(); i++) {
+            System.out.println(String.format("%d %d", expectedSequence[i], fixture.get(i)));
+            assertEquals((Integer) expectedSequence[i], fixture.get(i));
+        }
+
+
+        assertEquals("Tail wasn't updated: ", (Integer) expectedSequence[4], fixture.last());
+    }
+
+    @Test
+    public void swapWithNextTest_04() {
+        fixture.addLast(0);
+        fixture.addLast(1);
+        fixture.addLast(2);
+        fixture.addLast(3);
+        fixture.addLast(4);
+
+        int[] expectedSequence = {1, 2, 3, 4, 0};
+
+        ((CircularlyLinkedList) fixture).swapWithNext(1, 4);
+
+        for (int i = 0; i < fixture.size(); i++) {
+            System.out.println(String.format("%d %d", expectedSequence[i], fixture.get(i)));
+            assertEquals((Integer) expectedSequence[i], fixture.get(i));
+        }
+
+        assertEquals("Head wasn't updated: ", (Integer) expectedSequence[0], fixture.first());
+        assertEquals("Tail wasn't updated: ", (Integer) expectedSequence[4], fixture.last());
+    }
+
+    @Test
+    public void swapWithNextTest_05() {
+        fixture.addLast(0);
+        fixture.addLast(1);
+        fixture.addLast(2);
+        fixture.addLast(3);
+        fixture.addLast(4);
+
+        int[] expectedSequence = {2, 1, 3, 4, 0};
+
+        ((CircularlyLinkedList) fixture).swapWithNext(1, 5);
+
+        for (int i = 0; i < fixture.size(); i++) {
+            System.out.println(String.format("%d %d", expectedSequence[i], fixture.get(i)));
+            assertEquals((Integer) expectedSequence[i], fixture.get(i));
+        }
+
+
+        assertEquals("Head wasn't updated: ", (Integer) expectedSequence[0], fixture.first());
     }
 }
