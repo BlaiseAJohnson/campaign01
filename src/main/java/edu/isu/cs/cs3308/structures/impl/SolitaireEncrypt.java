@@ -1,3 +1,9 @@
+/**
+ * Blaise Johnson
+ * CS 3308
+ * Isaac Griffith
+ * 1/24/19
+ */
 package edu.isu.cs.cs3308.structures.impl;
 
 import java.io.IOException;
@@ -102,7 +108,9 @@ public class SolitaireEncrypt {
     }
 
 
-
+    /**
+     * Converts a sequence of numbers into ascii characters.
+     */
     public String convertNumsToMessage(int[] sequence) {
 
         StringBuilder messageBuilder = new StringBuilder();
@@ -115,6 +123,9 @@ public class SolitaireEncrypt {
     }
 
 
+    /**
+     * Appends Xs onto the end of a string until its length is a multiple of 5.
+     */
     public String padWithXs(String message) {
         while (message.length() % 5 != 0) {
             message = message.concat("X");
@@ -124,14 +135,20 @@ public class SolitaireEncrypt {
     }
 
 
+    /**
+     * Encrypts a sequence of numbers using the Solitaire encryption algorithm.
+     */
     public int[] encrypt(int[] sequence) {
         int[] encryptedSequence = new int[sequence.length];
 
+        // For each number in the sequence...
         for (int i = 0; i < sequence.length; i++) {
             int key = generateKeystreamValue();
             int currentCode = sequence[i];
 
+            // Add the generated keystream value to the current number in the sequence.
             currentCode += key;
+            // Ensure that the number is between 1 - 26 so that it can represent a letter.
             if (currentCode > 26) {
                 currentCode -= 26;
             }
@@ -150,7 +167,6 @@ public class SolitaireEncrypt {
         int keyValue;
 
         do {
-
             // 1. Move Joker A 1 card down in the deck.
             int jokerALocation = deck.indexOf(27);
             deck.swapWithNext(jokerALocation, 1);
@@ -198,7 +214,9 @@ public class SolitaireEncrypt {
     }
 
 
-
+    /**
+     * Splits the deck into groups based on the positions of the jokers and reverses the order of the groups.
+     */
     public void performTripleCut() {
         // Group A will be added to the end so original card order is maintained (addLast).
         CircularlyLinkedList<Integer> cardGroupA = new CircularlyLinkedList<>();

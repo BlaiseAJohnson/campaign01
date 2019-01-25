@@ -1,3 +1,9 @@
+/**
+ * Blaise Johnson
+ * CS 3308
+ * Isaac Griffith
+ * 1/24/19
+ */
 package edu.isu.cs.cs3308.structures.impl;
 
 
@@ -51,13 +57,15 @@ public class SinglyLinkedList<E> implements List<E> {
             if (isEmpty()) {
                 listHead = newNode;
                 listTail = newNode;
-            } else {
+            }
+            else {
+                // Travel to the correct node.
                 Node currentNode = listHead;
-
                 while (currentNode.getNextNode() != null) {
                     currentNode = currentNode.getNextNode();
                 }
 
+                // Append the node and update listTail.
                 currentNode.nextNode = newNode;
                 listTail = newNode;
             }
@@ -77,6 +85,7 @@ public class SinglyLinkedList<E> implements List<E> {
         if (element != null) {
             Node newHead = new Node(element);
 
+            // Prepend the node and update listHead
             newHead.nextNode = listHead;
             listHead = newHead;
 
@@ -195,8 +204,8 @@ public class SinglyLinkedList<E> implements List<E> {
     public E get(int index) {
         if (index >= listSize || index < 0) return null;
 
+        // Travel to the correct node
         Node currentNode = listHead;
-
         for (int i = 0; i < index; i++) {
             currentNode = currentNode.getNextNode();
         }
@@ -250,10 +259,10 @@ public class SinglyLinkedList<E> implements List<E> {
             int currentIndex = 0;
             boolean elementFound = false;
 
-            while (true) {
+            // Walk the list until the element is found or the end is reached and it is not found.
+            while (!elementFound) {
                 if (currentNode.nodeData.equals(element)) {
                     elementFound = true;
-                    break;
                 } else if (currentNode.nextNode == null) {
                     break;
                 } else {

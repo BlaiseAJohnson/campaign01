@@ -1,3 +1,9 @@
+/**
+ * Blaise Johnson
+ * CS 3308
+ * Isaac Griffith
+ * 1/24/19
+ */
 package edu.isu.cs.cs3308;
 
 import edu.isu.cs.cs3308.structures.impl.CircularlyLinkedList;
@@ -98,6 +104,9 @@ public class CircularlyLinkedListTest {
         assertNull("Case for negative arguments not handled: ",fixture.get(-1));
     }
 
+    /**
+     * Test basic functionality of swapWithNext().
+     */
     @Test
     public void swapWithNextTest_01() {
         fixture.addLast(0);
@@ -116,6 +125,9 @@ public class CircularlyLinkedListTest {
         }
     }
 
+    /**
+     * Test the recursive functionality of swapWithNext().
+     */
     @Test
     public void swapWithNextTest_02() {
         fixture.addLast(0);
@@ -134,6 +146,9 @@ public class CircularlyLinkedListTest {
         }
     }
 
+    /**
+     * Test whether tail is updated during swapWithNext().
+     */
     @Test
     public void swapWithNextTest_03() {
         fixture.addLast(0);
@@ -155,6 +170,9 @@ public class CircularlyLinkedListTest {
         assertEquals("Tail wasn't updated: ", (Integer) expectedSequence[4], fixture.last());
     }
 
+    /**
+     * Test whether head and tail are updated during swapWithNext().
+     */
     @Test
     public void swapWithNextTest_04() {
         fixture.addLast(0);
@@ -176,6 +194,9 @@ public class CircularlyLinkedListTest {
         assertEquals("Tail wasn't updated: ", (Integer) expectedSequence[4], fixture.last());
     }
 
+    /**
+     * Test whether head is updated during swapWithNext().
+     */
     @Test
     public void swapWithNextTest_05() {
         fixture.addLast(0);

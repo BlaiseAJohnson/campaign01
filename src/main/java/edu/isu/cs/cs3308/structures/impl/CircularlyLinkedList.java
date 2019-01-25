@@ -1,3 +1,9 @@
+/**
+ * Blaise Johnson
+ * CS 3308
+ * Isaac Griffith
+ * 1/24/19
+ */
 package edu.isu.cs.cs3308.structures.impl;
 
 public class CircularlyLinkedList<E> extends SinglyLinkedList<E> {
@@ -65,12 +71,14 @@ public class CircularlyLinkedList<E> extends SinglyLinkedList<E> {
                 listHead = newNode;
                 listTail = newNode;
             } else {
-                Node currentNode = listHead;
 
+                // Travel to the last node.
+                Node currentNode = listHead;
                 while (currentNode.getNextNode() != listHead && currentNode.getNextNode() != null) {
                     currentNode = currentNode.getNextNode();
                 }
 
+                // Insert the node at the end of the list and update listTail.
                 currentNode.nextNode = newNode;
                 listTail = newNode;
                 listTail.nextNode = listHead;
@@ -89,7 +97,7 @@ public class CircularlyLinkedList<E> extends SinglyLinkedList<E> {
      */
     @Override
     public E remove(int index) {
-        if (index >= listSize || index < 0) {
+        if (index < 0) {
             return null;
         }
         else {
@@ -109,11 +117,11 @@ public class CircularlyLinkedList<E> extends SinglyLinkedList<E> {
             currentNode.nextNode = null;
 
             // Update head or tail.
-            if (index == 0) {
+            if (index % listSize == 0) {
                 listHead = nodeAfterCurrent;
                 listTail.nextNode = listHead;
             }
-            else if (index == listSize - 1) {
+            else if (index % listSize == listSize - 1) {
                 listTail = nodeBeforeCurrent;
             }
 
@@ -124,22 +132,27 @@ public class CircularlyLinkedList<E> extends SinglyLinkedList<E> {
     }
 
     public void swapWithNext(int indexToSwap, int timesToSwap) {
+        // Defines base case for terminating recursion.
         if (timesToSwap == 0) {
             return;
         }
 
+        // Travel to correct node while storing previous node.
         Node currentNode = listHead;
         Node previousNode = listHead;
         for (int i = 0; i < indexToSwap; i ++) {
             previousNode = currentNode;
             currentNode = currentNode.nextNode;
         }
+        // Store next node.
         Node nextNode = currentNode.nextNode;
 
+        // Swap the current node with the node following it.
         previousNode.nextNode = nextNode;
         currentNode.nextNode = nextNode.nextNode;
         nextNode.nextNode = currentNode;
 
+        // Update head and or tail if applicable
         if (indexToSwap == 0) {
             listHead = nextNode;
         }
@@ -151,8 +164,7 @@ public class CircularlyLinkedList<E> extends SinglyLinkedList<E> {
             listTail = currentNode;
         }
 
-
-
+        // Recurse
         swapWithNext((indexToSwap + 1) % size(), timesToSwap - 1);
 
     }

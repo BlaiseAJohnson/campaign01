@@ -1,3 +1,9 @@
+/**
+ * Blaise Johnson
+ * CS 3308
+ * Isaac Griffith
+ * 1/24/19
+ */
 package edu.isu.cs.cs3308.structures;
 
 import edu.isu.cs.cs3308.structures.impl.SolitaireDecrypt;
@@ -30,7 +36,9 @@ public class Driver {
             userChoice = scanner.nextInt();
         } while (userChoice != 0 && userChoice != 1 && userChoice != 2);
 
+        // A new line gets stuck in the System.in and must be cleared.
         scanner.skip("\n");
+
 
         if (userChoice == 1) {
             SolitaireEncrypt encrypt = new SolitaireEncrypt("data/deck1.txt");

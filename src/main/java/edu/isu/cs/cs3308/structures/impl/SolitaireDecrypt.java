@@ -1,3 +1,9 @@
+/**
+ * Blaise Johnson
+ * CS 3308
+ * Isaac Griffith
+ * 1/24/19
+ */
 package edu.isu.cs.cs3308.structures.impl;
 
 import java.io.IOException;
@@ -101,7 +107,9 @@ public class SolitaireDecrypt {
     }
 
 
-
+    /**
+     * Converts a sequence of integers into ascii symbols.
+     */
     public String convertNumsToMessage(int[] sequence) {
 
         StringBuilder messageBuilder = new StringBuilder();
@@ -114,6 +122,9 @@ public class SolitaireDecrypt {
     }
 
 
+    /**
+     * Pads a string with Xs until the length of the message is a multiple of 5.
+     */
     public String padWithXs(String message) {
         while (message.length() % 5 != 0) {
             message = message.concat("X");
@@ -123,6 +134,9 @@ public class SolitaireDecrypt {
     }
 
 
+    /**
+     * Encrypts a sequence of integers using the Solitaire encryption algorithm.
+     */
     public int[] encrypt(int[] sequence) {
         int[] encryptedSequence = new int[sequence.length];
 
@@ -249,16 +263,5 @@ public class SolitaireDecrypt {
             int currentCard = cardGroupB.removeFirst();
             deck.addFirst(currentCard);
         }
-    }
-
-
-    public String exportDeckToString() {
-        StringBuilder listBuilder = new StringBuilder();
-
-        for (int i = 0; i < deck.size(); i++) {
-            listBuilder.append(deck.get(i)).append(" ");
-        }
-
-        return listBuilder.toString();
     }
 }

@@ -9,7 +9,7 @@ import java.util.List;
 import edu.isu.cs.cs3308.structures.impl.SolitaireEncrypt;
 
 /**
- * @author Isaac Griffith
+ * @author Isaac Griffith & Blaise Johnson
  */
 public class SolitaireEncryptTest {
 
@@ -56,6 +56,9 @@ public class SolitaireEncryptTest {
         }
     }
 
+    /**
+     * Test if triple cut is properly performed.
+     */
     @Test
     public void testPerformTripleCut() {
         SolitaireEncrypt encrypt = new SolitaireEncrypt("data/performTripleCutTestFile.txt");
@@ -80,15 +83,5 @@ public class SolitaireEncryptTest {
         String testMessage = encrypt.convertNumsToMessage(sequence);
 
         assertEquals(message, testMessage);
-    }
-
-    @Test
-    public void testGenerateKeyValue() {
-        SolitaireEncrypt encrypt = new SolitaireEncrypt("data/testDeck.txt");
-
-        int testKeyValue = encrypt.generateKeystreamValue();
-        int controlKeyValue = 13;
-
-        assertEquals(controlKeyValue, testKeyValue);
     }
 }
